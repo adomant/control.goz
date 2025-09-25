@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Р“РћР— вЂ” РљРѕРЅС‚СЂРѕР»СЊ Р»РёРјРёС‚Р° СЃ С‚РёРїР°РјРё РїР»Р°С‚РµР¶РµР№</title>
+  <title>ГОЗ — Контроль лимита с типами платежей</title>
   <style>
     :root { --bg:#f5f7fb; --card:#fff; --ink:#1f2937; --muted:#6b7280; --brand:#2563eb; --ok:#16a34a; --warn:#f59e0b; --bad:#dc2626; --exceed:#fde2e7; }
     *{box-sizing:border-box}
@@ -40,16 +40,16 @@
 <body>
 <div class="wrap">
   <div class="bar">
-    <div class="brand">Р“РћР— вЂў РљРѕРЅС‚СЂРѕР»СЊ Р»РёРјРёС‚Р° (СЂРµРіСѓР»СЏСЂРЅС‹Рµ / СЂР°Р·РѕРІС‹Рµ)</div>
-    <button class="btn" id="addRowBtn">+ Р”РѕР±Р°РІРёС‚СЊ РґРѕРіРѕРІРѕСЂ</button>
-    <button class="btn alt" id="saveBtn">рџ’ѕ РЎРѕС…СЂР°РЅРёС‚СЊ</button>
-    <button class="btn alt" id="loadBtn">рџ“Ґ Р—Р°РіСЂСѓР·РёС‚СЊ</button>
-    <button class="btn warn" id="clearBtn">в™»пёЏ РћС‡РёСЃС‚РёС‚СЊ</button>
+    <div class="brand">ГОЗ • Контроль лимита (регулярные / разовые)</div>
+    <button class="btn" id="addRowBtn">+ Добавить договор</button>
+    <button class="btn alt" id="saveBtn">💾 Сохранить</button>
+    <button class="btn alt" id="loadBtn">📥 Загрузить</button>
+    <button class="btn warn" id="clearBtn">♻️ Очистить</button>
   </div>
 
   <div class="card">
     <div class="tabs" id="tabs">
-      <button class="tab active" data-tab="registry">Р РµРµСЃС‚СЂ РґРѕРіРѕРІРѕСЂРѕРІ</button>
+      <button class="tab active" data-tab="registry">Реестр договоров</button>
     </div>
     <div class="content">
       <div id="registry" class="tabpage">
@@ -57,28 +57,28 @@
           <table>
             <thead>
               <tr>
-                <th>в„–</th>
-                <th>Р”Р°С‚Р°</th>
-                <th>РџСЂРµРґРјРµС‚</th>
-                <th>РљРѕРЅС‚СЂР°РіРµРЅС‚</th>
-                <th>РўРёРї РїР»Р°С‚РµР¶Р°</th>
-                <th>РЎСѓРјРјР° РѕР±СЏР·Р°С‚РµР»СЊСЃС‚РІР°</th>
-                <th>РђРІР°РЅСЃ 1 (СЃСѓРјРјР°)</th>
-                <th>РђРІР°РЅСЃ 1 (РґР°С‚Р°)</th>
-                <th>РђРІР°РЅСЃ 1 (РёСЃРї.)</th>
-                <th>РћРєРѕРЅС‡. СЂР°СЃС‡С‘С‚ (СЃСѓРјРјР°)</th>
-                <th>РћРєРѕРЅС‡. СЂР°СЃС‡С‘С‚ (РґР°С‚Р°)</th>
-                <th>РћРєРѕРЅС‡. СЂР°СЃС‡С‘С‚ (РёСЃРї.)</th>
-                <th>РќРµ РёСЃРїРѕР»РЅРµРЅРѕ</th>
+                <th>№</th>
+                <th>Дата</th>
+                <th>Предмет</th>
+                <th>Контрагент</th>
+                <th>Тип платежа</th>
+                <th>Сумма обязательства</th>
+                <th>Аванс 1 (сумма)</th>
+                <th>Аванс 1 (дата)</th>
+                <th>Аванс 1 (исп.)</th>
+                <th>Оконч. расчёт (сумма)</th>
+                <th>Оконч. расчёт (дата)</th>
+                <th>Оконч. расчёт (исп.)</th>
+                <th>Не исполнено</th>
               </tr>
             </thead>
             <tbody id="tbody-contracts"></tbody>
           </table>
         </div>
         <div class="stats">
-          <div class="kpi"><span class="note">Р’СЃРµРіРѕ РґРѕРіРѕРІРѕСЂРѕРІ</span><b id="kpi-total">0</b></div>
-          <div class="kpi"><span class="note">Р’ СЂР°Р±РѕС‚Рµ</span><b id="kpi-active">0</b></div>
-          <div class="kpi"><span class="note">РќРµРёСЃРїРѕР»РЅРµРЅРЅС‹С… РѕР±СЏР·Р°С‚РµР»СЊСЃС‚РІ</span><b id="kpi-notexec">0 в‚Ѕ</b></div>
+          <div class="kpi"><span class="note">Всего договоров</span><b id="kpi-total">0</b></div>
+          <div class="kpi"><span class="note">В работе</span><b id="kpi-active">0</b></div>
+          <div class="kpi"><span class="note">Неисполненных обязательств</span><b id="kpi-notexec">0 ₽</b></div>
         </div>
       </div>
     </div>
@@ -87,19 +87,19 @@
   <div class="card" style="margin-top:14px">
     <div class="tabs" id="monthTabs"></div>
     <div class="content" id="monthsHolder">
-      <div class="note">Р“РѕСЂРёР·РѕРЅС‚ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ: С‚РµРєСѓС‰РёР№ РјРµСЃСЏС† + 3 РІРїРµСЂС‘Рґ. Р РµС‚СЂРѕСЃРїРµРєС‚РёРІР°: РІСЃРµ РїСЂРѕС€РµРґС€РёРµ РјРµСЃСЏС†С‹ С‚РѕР»СЊРєРѕ РїРѕ <b>РёСЃРїРѕР»РЅРµРЅРЅС‹Рј</b> РїР»Р°С‚РµР¶Р°Рј. Р›РёРјРёС‚: <b>5вЂЇ200вЂЇ000 в‚Ѕ</b>/РјРµСЃ.</div>
+      <div class="note">Горизонт отображения: текущий месяц + 3 вперёд. Ретроспектива: все прошедшие месяцы только по <b>исполненным</b> платежам. Лимит: <b>5 200 000 ₽</b>/мес.</div>
     </div>
   </div>
 </div>
 
 <script>
-// === РџРђР РђРњР•РўР Р« ===
+// === ПАРАМЕТРЫ ===
 const MONTH_LIMIT = 5_200_000;
 const today = new Date();
 const curKey = (d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`)(today);
-const horizonEnd = new Date(today.getFullYear(), today.getMonth()+3, 1); // РєРѕРЅРµС† РіРѕСЂРёР·РѕРЅС‚Р° (РЅР°С‡Р°Р»Рѕ РјРµСЃСЏС†Р° +3)
+const horizonEnd = new Date(today.getFullYear(), today.getMonth()+3, 1); // конец горизонта (начало месяца +3)
 
-// === Р”РђРќРќР«Р• ===
+// === ДАННЫЕ ===
 let contracts = [];
 let counter = 1;
 
@@ -107,11 +107,11 @@ let counter = 1;
 const el = s=>document.querySelector(s);
 const fmt = n=> new Intl.NumberFormat('ru-RU',{style:'currency',currency:'RUB',maximumFractionDigits:0}).format(Number(n||0));
 const mKey = d=>{ const x=new Date(d); if(Number.isNaN(+x)) return null; return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}`; };
-const mName = key=>{ if(!key) return ''; const [y,m]=key.split('-').map(Number); const names=['РЇРЅРІР°СЂСЊ','Р¤РµРІСЂР°Р»СЊ','РњР°СЂС‚','РђРїСЂРµР»СЊ','РњР°Р№','РСЋРЅСЊ','РСЋР»СЊ','РђРІРіСѓСЃС‚','РЎРµРЅС‚СЏР±СЂСЊ','РћРєС‚СЏР±СЂСЊ','РќРѕСЏР±СЂСЊ','Р”РµРєР°Р±СЂСЊ']; return `${names[m-1]} ${y}`; };
+const mName = key=>{ if(!key) return ''; const [y,m]=key.split('-').map(Number); const names=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']; return `${names[m-1]} ${y}`; };
 function addMonths(date, n){ const d=new Date(date); d.setMonth(d.getMonth()+n); return d; }
 function monthKeysBetween(startDate, endDate){ const a=[]; let d=new Date(startDate.getFullYear(), startDate.getMonth(), 1); const end=new Date(endDate.getFullYear(), endDate.getMonth(), 1); while(d<=end){ a.push(mKey(d)); d.setMonth(d.getMonth()+1);} return a; }
 
-// === UI: Р Р•Р•РЎРўР  ===
+// === UI: РЕЕСТР ===
 function addRow(prefill){
   const id = `c_${Date.now()}_${counter++}`;
   const c = Object.assign({ id, number:'', date:'', subject:'', contractor:'', ptype:'single', total:0,
@@ -132,8 +132,8 @@ function renderRegistry(){
       <td><input value="${c.contractor}" oninput="updateC('${c.id}','contractor',this.value)"></td>
       <td>
         <select onchange="updateC('${c.id}','ptype',this.value)">
-          <option value="single" ${c.ptype==='single'?'selected':''}>Р Р°Р·РѕРІС‹Р№</option>
-          <option value="regular" ${c.ptype==='regular'?'selected':''}>Р РµРіСѓР»СЏСЂРЅС‹Р№</option>
+          <option value="single" ${c.ptype==='single'?'selected':''}>Разовый</option>
+          <option value="regular" ${c.ptype==='regular'?'selected':''}>Регулярный</option>
         </select>
       </td>
       <td><input type="number" value="${c.total}" oninput="updateC('${c.id}','total',parseFloat(this.value)||0)"></td>
@@ -157,18 +157,18 @@ function updateC(id, field, val){
   c.done = c.notExec<=0 && (c.total||0)>0;
   const cell = el(`#ne_${id}`); if(cell) cell.textContent = fmt(c.notExec);
 
-  // РїСЂРѕРІРµСЂРєР° Р»РёРјРёС‚Р° РґР»СЏ РЅРѕРІС‹С…/РёР·РјРµРЅС‘РЅРЅС‹С… вЂ” Р±РµР· СѓС‡С‘С‚Р° С‚РµРєСѓС‰РµРіРѕ РґРѕРіРѕРІРѕСЂР°, РїРѕС‚РѕРј СЃ РЅРёРј
+  // проверка лимита для новых/изменённых — без учёта текущего договора, потом с ним
   checkLimitImpact(c);
 
   recalcAll();
 }
 
-// === Р›РћР“РРљРђ РџРћ РњР•РЎРЇР¦РђРњ ===
+// === ЛОГИКА ПО МЕСЯЦАМ ===
 function visibleMonths(){
-  // РўРµРєСѓС‰РёР№ + 3 РІРїРµСЂС‘Рґ
+  // Текущий + 3 вперёд
   const now = new Date();
   const forwardKeys = monthKeysBetween(now, addMonths(now,3));
-  // Р РµС‚СЂРѕСЃРїРµРєС‚РёРІР° РїРѕ РёСЃРїРѕР»РЅРµРЅРЅС‹Рј
+  // Ретроспектива по исполненным
   const retroKeys = new Set();
   for(const c of contracts){
     if(c.adv1Done && c.adv1Date){ const k=mKey(c.adv1Date); if(k && k<curKey) retroKeys.add(k); }
@@ -188,16 +188,16 @@ function rebuildMonths(){
       <div class="table-wrap">
         <table>
           <thead><tr>
-            <th>РџРѕСЃС‚Р°РІС‰РёРє</th><th>РЎСѓРјРјР°</th><th>РџР»Р°РЅРѕРІР°СЏ РґР°С‚Р°</th><th>РўРёРї</th><th>Р”РѕРіРѕРІРѕСЂ</th><th>РСЃРїРѕР»РЅРµРЅРѕ</th>
+            <th>Поставщик</th><th>Сумма</th><th>Плановая дата</th><th>Тип</th><th>Договор</th><th>Исполнено</th>
           </tr></thead>
           <tbody id="mb_${k}"></tbody>
         </table>
       </div>
       <div class="stats">
-        <div class="kpi"><span class="note">РџР»Р°РЅ РЅР° РјРµСЃСЏС†</span><b id="kp_plan_${k}">0 в‚Ѕ</b></div>
-        <div class="kpi"><span class="note">Р¤Р°РєС‚</span><b id="kp_fact_${k}">0 в‚Ѕ</b></div>
-        <div class="kpi"><span class="note">РЎРІРѕР±РѕРґРЅС‹Р№ Р»РёРјРёС‚</span><b id="kp_free_${k}">0 в‚Ѕ</b></div>
-        <div class="kpi"><span class="note">РЎС‚Р°С‚СѓСЃ Р»РёРјРёС‚Р°</span><b><span id="kp_status_${k}" class="badge">OK</span></b></div>
+        <div class="kpi"><span class="note">План на месяц</span><b id="kp_plan_${k}">0 ₽</b></div>
+        <div class="kpi"><span class="note">Факт</span><b id="kp_fact_${k}">0 ₽</b></div>
+        <div class="kpi"><span class="note">Свободный лимит</span><b id="kp_free_${k}">0 ₽</b></div>
+        <div class="kpi"><span class="note">Статус лимита</span><b><span id="kp_status_${k}" class="badge">OK</span></b></div>
       </div>`;
     holder.appendChild(page);
   });
@@ -208,8 +208,8 @@ function rebuildMonths(){
 function plannedEntriesForContract(c){
   const entries = [];
   const items = [
-    { amt:c.adv1, date:c.adv1Date, done:c.adv1Done, label:'РђРІР°РЅСЃ 1' },
-    { amt:c.fin,  date:c.finDate,  done:c.finDone,  label:'РћРєРѕРЅС‡. СЂР°СЃС‡С‘С‚' }
+    { amt:c.adv1, date:c.adv1Date, done:c.adv1Done, label:'Аванс 1' },
+    { amt:c.fin,  date:c.finDate,  done:c.finDone,  label:'Оконч. расчёт' }
   ];
   for(const it of items){
     if(!(Number(it.amt)>0) || !it.date) continue;
@@ -218,14 +218,14 @@ function plannedEntriesForContract(c){
       const key = mKey(start);
       entries.push({ key, contractor:c.contractor, amt:Number(it.amt)||0, date:it.date, type:it.label, number:c.number, done:it.done });
     } else {
-      // СЂРµРіСѓР»СЏСЂРЅС‹Р№: РµР¶РµРјРµСЃСЏС‡РЅР°СЏ С‚СЂР°РЅСЃР»СЏС†РёСЏ РѕС‚ start РґРѕ РєРѕРЅС†Р° РіРѕСЂРёР·РѕРЅС‚Р°
+      // регулярный: ежемесячная трансляция от start до конца горизонта
       const now = new Date();
       const keys = monthKeysBetween(start, addMonths(now,3));
       for(const k of keys){
         const kDateParts = k.split('-').map(Number);
         const d = new Date(kDateParts[0], kDateParts[1]-1, start.getDate());
         const inPast = k < curKey;
-        if(inPast && !it.done) continue; // СЂРµС‚СЂРѕ С‚РѕР»СЊРєРѕ РїРѕ РёСЃРїРѕР»РЅРµРЅРЅС‹Рј
+        if(inPast && !it.done) continue; // ретро только по исполненным
         entries.push({ key:k, contractor:c.contractor, amt:Number(it.amt)||0, date:d.toISOString().slice(0,10), type:it.label, number:c.number, done:it.done && (k===mKey(it.date)) });
       }
     }
@@ -236,23 +236,23 @@ function plannedEntriesForContract(c){
 function fillMonth(k){
   const body = el(`#mb_${k}`); if(!body) return; body.innerHTML='';
   let plan=0, fact=0;
-  // СЃРѕР±СЂР°С‚СЊ РІСЃРµ Р·Р°РїРёСЃРё
+  // собрать все записи
   let rows=[];
   for(const c of contracts){ rows = rows.concat(plannedEntriesForContract(c).filter(e=>e.key===k)); }
   for(const r of rows){
     plan += r.amt; if(r.done) fact += r.amt;
     const tr=document.createElement('tr');
-    tr.innerHTML = `<td>${r.contractor||''}</td><td style="text-align:right;font-weight:700">${fmt(r.amt)}</td><td>${new Date(r.date).toLocaleDateString('ru-RU')}</td><td>${r.type}${/* show Reg/Single hint */''}</td><td>${r.number||''}</td><td style="text-align:center">${r.done?'вњ…':'вЏі'}</td>`;
+    tr.innerHTML = `<td>${r.contractor||''}</td><td style="text-align:right;font-weight:700">${fmt(r.amt)}</td><td>${new Date(r.date).toLocaleDateString('ru-RU')}</td><td>${r.type}${/* show Reg/Single hint */''}</td><td>${r.number||''}</td><td style="text-align:center">${r.done?'✅':'⏳'}</td>`;
     body.appendChild(tr);
   }
-  // РёС‚РѕРіРё + Р»РёРјРёС‚РЅС‹Рµ РїРѕРґСЃРєР°Р·РєРё
+  // итоги + лимитные подсказки
   const free = MONTH_LIMIT - plan;
   el(`#kp_plan_${k}`).textContent = fmt(plan);
   el(`#kp_fact_${k}`).textContent = fmt(fact);
-  el(`#kp_free_${k}`).textContent = free>=0?fmt(free):`РџСЂРµРІС‹С€РµРЅРёРµ: ${fmt(-free)}`;
+  el(`#kp_free_${k}`).textContent = free>=0?fmt(free):`Превышение: ${fmt(-free)}`;
   const st = el(`#kp_status_${k}`);
-  if(st){ if(plan>MONTH_LIMIT){ st.textContent='РџСЂРµРІС‹С€РµРЅРёРµ'; st.className='badge pill-bad'; }
-          else if(plan>MONTH_LIMIT*0.85){ st.textContent='РџРѕС‡С‚Рё Р»РёРјРёС‚'; st.className='badge pill-warn'; }
+  if(st){ if(plan>MONTH_LIMIT){ st.textContent='Превышение'; st.className='badge pill-bad'; }
+          else if(plan>MONTH_LIMIT*0.85){ st.textContent='Почти лимит'; st.className='badge pill-warn'; }
           else { st.textContent='OK'; st.className='badge pill-ok'; } }
 }
 
@@ -261,7 +261,7 @@ function showTab(tabId){
   document.querySelectorAll('#monthsHolder .tabpage').forEach(p=>p.style.display = p.id===`m_${tabId}`?'block':'none');
 }
 
-// === Р›РРњРРў: РїСЂРѕРІРµСЂРєР° РІР»РёСЏРЅРёСЏ С‚РµРєСѓС‰РµРіРѕ РґРѕРіРѕРІРѕСЂР° ===
+// === ЛИМИТ: проверка влияния текущего договора ===
 function monthlyTotalsExcluding(excludeId){
   const totals = new Map(); // key -> sum
   for(const c of contracts){
@@ -287,7 +287,7 @@ function checkLimitImpact(c){
   }
 }
 
-// === KPI + Р Р•РќР”Р•Р  ===
+// === KPI + РЕНДЕР ===
 function recalcAll(){
   const total = contracts.filter(c=>c.number).length;
   const active = contracts.filter(c=>c.number && !c.done).length;
@@ -299,9 +299,9 @@ function recalcAll(){
 }
 
 // === PERSISTENCE ===
-function saveLocal(){ localStorage.setItem('goz_reg_v1', JSON.stringify(contracts)); alert('РЎРѕС…СЂР°РЅРµРЅРѕ'); }
-function loadLocal(){ try{ const d=JSON.parse(localStorage.getItem('goz_reg_v1')||'[]'); if(Array.isArray(d)){ contracts = d; renderRegistry(); alert('Р—Р°РіСЂСѓР¶РµРЅРѕ'); } }catch(e){ alert('РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё'); } }
-function clearAll(){ if(confirm('РћС‡РёСЃС‚РёС‚СЊ РІСЃРµ РґР°РЅРЅС‹Рµ?')){ contracts=[]; renderRegistry(); el('#monthTabs').innerHTML=''; el('#monthsHolder').querySelectorAll('.tabpage').forEach(p=>p.remove()); }}
+function saveLocal(){ localStorage.setItem('goz_reg_v1', JSON.stringify(contracts)); alert('Сохранено'); }
+function loadLocal(){ try{ const d=JSON.parse(localStorage.getItem('goz_reg_v1')||'[]'); if(Array.isArray(d)){ contracts = d; renderRegistry(); alert('Загружено'); } }catch(e){ alert('Ошибка загрузки'); } }
+function clearAll(){ if(confirm('Очистить все данные?')){ contracts=[]; renderRegistry(); el('#monthTabs').innerHTML=''; el('#monthsHolder').querySelectorAll('.tabpage').forEach(p=>p.remove()); }}
 
 // === WIRE ===
 el('#addRowBtn').onclick = ()=> addRow();
@@ -310,9 +310,10 @@ el('#loadBtn').onclick = loadLocal;
 el('#clearBtn').onclick = clearAll;
 
 // === DEMO ROW ===
-addRow({ number:'Р“РћР—-001/2025', date:'2025-01-15', subject:'РџРѕСЃС‚Р°РІРєР°', contractor:'РћРћРћ В«РўРµС…РџСЂРѕРјВ»', ptype:'regular', total:5200000,
+addRow({ number:'ГОЗ-001/2025', date:'2025-01-15', subject:'Поставка', contractor:'ООО «ТехПром»', ptype:'regular', total:5200000,
   adv1:1500000, adv1Date:'2025-09-05', adv1Done:false,
   fin:2000000,  finDate:'2025-11-10',  finDone:false });
 </script>
 </body>
 </html>
+
